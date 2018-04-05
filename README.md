@@ -47,6 +47,45 @@ kubectl logs $POD_NAME
 kubectl exec $POD_NAME env
 kubectl exec -ti $POD_NAME bash
 ```
+## Exposing the app
+- creat service:
+```bash
+kubectl get services
+```
+  - find out node port
+```bash
+kubectl expose deployment/kubernetes-bootcamp --type="NodePort" --port 8080
+kubectl describe services/kubernetes-bootcamp
+export NODE_PORT=$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')
+echo NODE_PORT=$NODE_PORT
+```
+  - access the service from external
+```bash
+curl $(minikube ip):$NODE_PORT
+```
+
+- using labels:
+  - find out the name of label
+```bash
+kubectl describe deployment
+```
+  - find the coorsponding pods or services
+```bash
+kubectl get pods -l run=kubernetes-bootcamp
+kubectl get services -l run=kubernetes-bootcamp
+```
+  - apply a new label
+```bash
+export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+echo Name of the Pod: $POD_NAME
+kubectl label pod $POD_NAME app=v1
+kubectl describe pods $POD_NAME
+kubectl get pods -l app=v1
+```
+  - deleting a service
+```bash
+kubectl delete service -l run=kubernetes-bootcamp
+```
 ## Concept
 ### Pods
 <div align=center><img height="50%" width="50%" src="/img/overview.png"/></div>
