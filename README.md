@@ -49,7 +49,8 @@ kubectl exec -ti $POD_NAME bash
 ```
 ## Concept
 ### Pods
-<div align=center><img height="50%" width="50%" src="/img/overview.png"/>
+<div align=center><img height="50%" width="50%" src="/img/overview.png"/></div>
+
 - abstraction that represents a group of one or more containers
 - Sharing:
   - Storage, as Volumes
