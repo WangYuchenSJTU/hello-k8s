@@ -31,13 +31,25 @@ curl http://localhost:8001/version
 ```
 - access the app
 ```bash
-export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
-echo Name of the Pod: $POD_NAME
 curl http://localhost:8001/api/v1/proxy/namespaces/default/pods/$POD_NAME/
 ```
+## Explore the app
+- `kubectl get` - list resources
+- `kubectl describe` - show detailed information about a resource
+- `kubectl logs` - print the logs from a container in a pod
+- `kubectl exec` - execute a command on a container in a pod
 
+- examples:
+```bash
+export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')
+echo Name of the Pod: $POD_NAME
+kubectl logs $POD_NAME
+kubectl exec $POD_NAME env
+kubectl exec -ti $POD_NAME bash
+```
 ## Concept
 ### Pods
+<div align=center><img height="50%" width="50%" src="/img/overview.png"/>
 - abstraction that represents a group of one or more containers
 - Sharing:
   - Storage, as Volumes
