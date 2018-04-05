@@ -56,3 +56,17 @@ kubectl exec -ti $POD_NAME bash
   - Storage, as Volumes
   - Networking, as a unique cluster IP address
   - Information about how to run each container, such as the container image version or specific ports to use
+### Services
+<div align=center><img height="50%" width="50%" src="/img/service.png"/></div>
+
+- an abstraction which defines a logical set of Pods and a policy by which to access them
+- can be exposed in different ways by specifying a `type` in the ServiceSpec:
+  - ClusterIP (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.
+  - NodePort - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using `<NodeIP>:<NodePort>`. Superset of ClusterIP.
+  - LoadBalancer - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.
+  - ExternalName - Exposes the Service using an arbitrary name (specified by `externalName` in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of `kube-dns`.
+
+- Services match a set of Pods using labels and selectors, a grouping primitive that allows logical operation on objects in Kubernetes. Labels are key/value pairs attached to objects and can be used in any number of ways:
+  - Designate objects for development, test, and production
+  - Embed version tags
+  - Classify an object using tags
