@@ -47,7 +47,7 @@ kubectl logs $POD_NAME
 kubectl exec $POD_NAME env
 kubectl exec -ti $POD_NAME bash
 ```
-## Exposing the app
+## Expose the app
 - creat service:
 ```bash
 kubectl get services
@@ -85,6 +85,26 @@ kubectl get pods -l app=v1
   - deleting a service
 ```bash
 kubectl delete service -l run=kubernetes-bootcamp
+```
+## Scale the app
+```bash
+kubectl scale deployments/kubernetes-bootcamp --replicas=4
+kubectl get deployments
+kubectl get pods -o wide
+```
+
+## Update the app
+- update
+```bash
+kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+```
+- confirm the update
+```bash
+kubectl rollout status deployments/kubernetes-bootcamp
+```
+- rollback
+```bash
+kubectl rollout undo deployments/kubernetes-bootcamp
 ```
 ## Concept
 ### Pods
