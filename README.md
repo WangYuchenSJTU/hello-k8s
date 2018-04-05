@@ -13,7 +13,7 @@ kubectl cluster-info
 kubectl get nodes
 ```
 
-## Deply an app
+## Deploy an app
 - creat a deployment
 ```bash
 kubectl run NAME --image=image [--env="key=value"] [--port=port] [--replicas=replicas] [--dry-run=bool] [--overrides=inline-json] [--command] -- [COMMAND] [args...] [options]
@@ -35,3 +35,11 @@ export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{
 echo Name of the Pod: $POD_NAME
 curl http://localhost:8001/api/v1/proxy/namespaces/default/pods/$POD_NAME/
 ```
+
+## Concept
+### Pods
+- abstraction that represents a group of one or more containers
+- Sharing:
+  - Storage, as Volumes
+  - Networking, as a unique cluster IP address
+  - Information about how to run each container, such as the container image version or specific ports to use
