@@ -37,3 +37,12 @@ minikube is a test version.
 ## kubeadm
 kubeadm is a production version.
 - [kubeadm Installation](kubeadm/README.md)
+
+## docker-mirrors
+```bash
+sudo vim /etc/docker/daemon.json
+{
+  "registry-mirrors": ["https://registry.docker-cn.com"]
+}
+sudo service docker restart
+```
